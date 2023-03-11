@@ -4,9 +4,7 @@
 поголем или помал од неговиот замислен број. Играта завршува кога
 програмата ќе го погоди бројот кој го замислил корисникот.
 """
-import math
 from random import randint
-from math import *
 
 
 def guess_num(number):
