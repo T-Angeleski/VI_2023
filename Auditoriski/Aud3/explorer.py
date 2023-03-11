@@ -19,8 +19,10 @@ def block_movement(block, gridY):
 
 class Explorer(Problem):
 
-    def __init__(self, initial, goal=None):
+    def __init__(self, blocks, initial, goal=None):
         super().__init__(initial, goal)
+        self.block1 = blocks[0]
+        self.block2 = blocks[1]
         self.grid_size = (8, 6)
 
     def successor(self, state):
@@ -34,41 +36,32 @@ class Explorer(Problem):
 
         manX = state[0]
         manY = state[1]
-        block1 = [state[2], state[3], state[4]]
-        block2 = [state[5], state[6], state[7]]
+
         gridX = self.grid_size[0]
         gridY = self.grid_size[1]
 
         block_movement(block1, gridY)
         block_movement(block2, gridY)
 
-        blocks = [[block1[0], block1[1], block1[2]], [block2[0], block2[1],
-                                                      block2[2]]]
+        blocks = [[self.block1[0], self.block1[1], self.block1[2]],
+                  [self.block2[0], self.block2[1], self.block2[2]]]
 
         # Actions
         # Right movement
         if manX < gridX - 1 and [manX + 1, manY] not in blocks:
-            successors["Move Right"] = (manX + 1, manY,
-                                        block1[0], block1[1], block1[2],
-                                        block2[0], block2[1], block2[2])
+            successors["Move Right"] = (manX + 1, manY)
 
         # Left
         if manX > 0 and [manX - 1, manY] not in blocks:
-            successors["Move Left"] = (manX - 1, manY,
-                                       block1[0], block1[1], block1[2],
-                                       block2[0], block2[1], block2[2])
+            successors["Move Left"] = (manX - 1, manY)
 
         # Up
         if manY < gridY - 1 and [manX, manY + 1] not in blocks:
-            successors["Move Up"] = (manX, manY + 1,
-                                     block1[0], block1[1], block1[2],
-                                     block2[0], block2[1], block2[2])
+            successors["Move Up"] = (manX, manY + 1)
 
         # Down
         if manY > 0 and [manX, manY - 1] not in blocks:
-            successors["Move Down"] = (manX, manY - 1,
-                                       block1[0], block1[1], block1[2],
-                                       block2[0], block2[1], block2[2])
+            successors["Move Down"] = (manX, manY - 1)
 
         return successors
 
@@ -83,14 +76,13 @@ class Explorer(Problem):
 
 
 if __name__ == '__main__':
-    goalState = (5, 4)  # House
-    startState = (0, 0)  # Explorer
-    block1 = (2, 5, 0)  # 0 Down movement
-    block2 = (5, 0, 1)  # 1 Up movement
+    goalState = (7, 4)  # House
+    startState = (0, 2)  # Explorer
+    block1 = [2, 5, 0]  # 0 Down movement
+    block2 = [5, 0, 1]  # 1 Up movement
 
-    explorer = Explorer((startState[0], startState[1],
-                         block1[0], block1[1], block1[2],
-                         block2[0], block2[1], block2[2]), goalState)
+    explorer = Explorer([block1, block2], (startState[0], startState[1]),
+                        goalState)
 
     print(breadth_first_graph_search(explorer).solution())
     print(breadth_first_graph_search(explorer).solve())
