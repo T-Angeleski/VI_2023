@@ -1,18 +1,10 @@
 from constraint import *
 
 
-def marijaTimes(time):
-	return time in [14, 15, 18]
-
-
-def petarTimes(time):
-	return time in [12, 13, 16, 17, 18, 19]
-
-
 def checkTimes(simona, marija, petar, time):
-	if simona == 1 and not [13, 14, 16, 19]: return False
-	if marija == 1 and not marijaTimes(time): return False
-	if petar == 1 and not petarTimes(time): return False
+	if simona == 1 and time not in [13, 14, 16, 19]: return False
+	if marija == 1 and time not in [14, 15, 18]: return False
+	if petar == 1 and time not in [12, 13, 16, 17, 18, 19]: return False
 
 	return True
 
