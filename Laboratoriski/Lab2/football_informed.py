@@ -109,8 +109,7 @@ class Football(Problem):
 
 		# Get minimum "king move" distance from ball and goal
 
-		return min(king_distance(ball, goal[0]),
-		           king_distance(ball, goal[1]))
+		return king_distance(ball, goal[0]) + king_distance(ball, goal[1])
 
 
 if __name__ == '__main__':
