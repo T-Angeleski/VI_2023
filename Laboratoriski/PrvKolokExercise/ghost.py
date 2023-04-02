@@ -17,6 +17,13 @@ def checkValid(x, y, n, obstacles):
 	return True
 
 
+def mhd(ghost, goal):
+	x, y = ghost
+	gx, gy = goal
+
+	return abs(gx - x) + abs(gy - y)
+
+
 class GhostOnSkates(Problem):
 
 	def __init__(self, grid_size, obstacles, initial, goal=None):
@@ -49,7 +56,8 @@ class GhostOnSkates(Problem):
 		return self.successor(state)[action]
 
 	def h(self, node):
-		return 1
+		# ghost - state, pacman - goal, /3 (can move up to 3)
+		return mhd(node.state, self.goal) / 3
 
 
 if __name__ == '__main__':
