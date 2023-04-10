@@ -66,10 +66,6 @@ def checkPellets(position, pellets):
 	return position in pellets
 
 
-def mhd(pacman, pellet):
-	return abs(pacman[0] - pellet[0]) + abs(pacman[1] - pellet[1])
-
-
 class Pacman(Problem):
 
 	def __init__(self, obstacles, initial, goal=None):
@@ -123,12 +119,16 @@ class Pacman(Problem):
 
 	def h(self, node):
 		pacman, pellets = node.state
-		value = 99
+		x, y = pacman[0], pacman[1]
+
+		minimum = 99
+
+		if len(pellets) == 0: return 0
 
 		for pellet in pellets:
-			value = min(value, mhd(pacman, pellet))
-
-		return value
+			mhd = abs(x - pellet[0]) + abs(y - pellet[1])
+			minimum = min(minimum, mhd)
+		return minimum
 
 
 if __name__ == "__main__":
@@ -151,5 +151,6 @@ if __name__ == "__main__":
 
 	problem = Pacman(obstacles_list, (pacman, tuple(pellets)))
 	solve = astar_search(problem).solution()
-	for s in solve:
-		print(s)
+	# for s in solve:
+	# 	print(s)
+	print(solve)
