@@ -19,29 +19,20 @@ def move(square, direction):
 class Squares(Problem):
 	def __init__(self, initial, goal):
 		super().__init__(initial, goal)
-		self.moves = ("levo", "desno", "gore", "dolu")
+		self.moves = ("gore", "dolu", "levo", "desno")
 
 	def successor(self, state):
 		succ = {}
 		# State = (squares) x, y
-		for i in range(5):
-			squares = list(state)
-			square = squares[i]
-
-			while square != self.goal[i]:
-				for direction in self.moves:
-					afterMove = move(square, direction)
-					if afterMove != square and self.check_valid_square(
-							afterMove):
-						# TODO : izvadi od state segasno i sporedi
-						ind = squares.index(square)
-						# squares.
-						squares.insert(ind, afterMove)
-
-						succ[f"Pomesti kvadratche {i + 1} {direction}"] = \
-							tuple(squares)
-
-						if afterMove == self.goal[i]: break
+		squares = list(state)
+		for square in squares:
+			for dir in self.moves:
+				tmp = list(state)
+				newPos = move(square, dir)
+				tmp[tmp.index(square)] = newPos
+				if Squares.check_valid_square(newPos):
+					succ[f"Pomesti kvadratche {squares.index(square) + 1} " \
+					     f"{dir}"] = tuple(tmp)
 
 		return succ
 

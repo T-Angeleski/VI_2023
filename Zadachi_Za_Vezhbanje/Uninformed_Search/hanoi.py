@@ -43,7 +43,9 @@ class Hanoi(Problem):
 		for i in range(num):
 			if len(pillars[i]) != 0:
 				for j in range(num):
-					tmpPillars = list(state)  #TODO
+					tmpPillars = []
+					for block in state:
+						tmpPillars.append(list(block))
 					top = tmpPillars[i].pop()
 					newState = move(top, tmpPillars, j)
 					tupleState = convertTuple(newState, num)
@@ -51,22 +53,7 @@ class Hanoi(Problem):
 						succ[f"MOVE TOP BLOCK FROM PILLAR " \
 						     f"{i + 1} TO " \
 						     f"PILLAR" \
-						     f" {j + 1}."] = tupleState
-
-		# for pillar in pillars:
-		# 	if len(pillar) != 0:
-		# 		for i in range(num):
-		# 			tmpPillars = pillars.copy()
-		# 			top = tmpPillars[tmpPillars.index(pillar)].pop()
-		# 			newState = move(top, tmpPillars, i)
-		# 			num, tupleState = convertTuple(newState, num)
-		# 			print(f"Pillar {pillars.index(pillar) + 1}")
-		# 			print(f"To {i + 1}")
-		# 			if tupleState != state and check_valid(newState):
-		# 				succ[f"MOVE TOP BLOCK FROM PILLAR " \
-		# 				     f"{pillars.index(pillar) + 1} TO " \
-		# 				     f"PILLAR" \
-		# 				     f" {i + 1}."] = tupleState
+						     f" {j + 1}"] = tupleState
 
 		return succ
 
@@ -98,5 +85,6 @@ if __name__ == '__main__':
 		group.clear()
 
 	problem = Hanoi(tuple(blocks), tuple(goal))
-	solve = breadth_first_graph_search(problem).solve()
+	solve = breadth_first_graph_search(problem).solution()
+	print(f"Number of action {len(solve)}")
 	print(solve)
