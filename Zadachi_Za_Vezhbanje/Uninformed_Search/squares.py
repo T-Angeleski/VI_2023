@@ -25,14 +25,40 @@ class Squares(Problem):
 		succ = {}
 		# State = (squares) x, y
 		squares = list(state)
-		for square in squares:
-			for dir in self.moves:
-				tmp = list(state)
-				newPos = move(square, dir)
-				tmp[tmp.index(square)] = newPos
-				if Squares.check_valid_square(newPos):
-					succ[f"Pomesti kvadratche {squares.index(square) + 1} " \
-					     f"{dir}"] = tuple(tmp)
+		for dir in self.moves:
+			newPos = move(squares[0], dir)
+			tmp = list(state)
+			tmp[0] = newPos
+			if Squares.check_valid_square(newPos):
+				succ[f"Pomesti kvadratche {1} {dir}"] = tuple(tmp)
+
+		for dir in self.moves:
+			newPos = move(squares[1], dir)
+			tmp = list(state)
+			tmp[1] = newPos
+			if Squares.check_valid_square(newPos):
+				succ[f"Pomesti kvadratche {2} {dir}"] = tuple(tmp)
+
+		for dir in self.moves:
+			newPos = move(squares[2], dir)
+			tmp = list(state)
+			tmp[2] = newPos
+			if Squares.check_valid_square(newPos):
+				succ[f"Pomesti kvadratche {3} {dir}"] = tuple(tmp)
+
+		for dir in self.moves:
+			newPos = move(squares[3], dir)
+			tmp = list(state)
+			tmp[3] = newPos
+			if Squares.check_valid_square(newPos):
+				succ[f"Pomesti kvadratche {4} {dir}"] = tuple(tmp)
+
+		for dir in self.moves:
+			newPos = move(squares[4], dir)
+			tmp = list(state)
+			tmp[4] = newPos
+			if Squares.check_valid_square(newPos):
+				succ[f"Pomesti kvadratche {5} {dir}"] = tuple(tmp)
 
 		return succ
 
