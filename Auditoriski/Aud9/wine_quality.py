@@ -1,5 +1,6 @@
 from sklearn.neural_network import MLPClassifier
 
+
 def readDataset():
 	data = []
 	with open("winequality.csv") as doc:
@@ -45,11 +46,11 @@ if __name__ == '__main__':
 	                            learning_rate_init=0.001,
 	                            max_iter=500, random_state=0)
 	classifier10 = MLPClassifier(10, activation="relu",
-	                            learning_rate_init=0.001,
-	                            max_iter=500, random_state=0)
+	                             learning_rate_init=0.001,
+	                             max_iter=500, random_state=0)
 	classifier100 = MLPClassifier(100, activation="relu",
-	                            learning_rate_init=0.001,
-	                            max_iter=500, random_state=0)
+	                              learning_rate_init=0.001,
+	                              max_iter=500, random_state=0)
 	
 	classifier5.fit(trainX, trainY)
 	classifier10.fit(trainX, trainY)
@@ -75,13 +76,13 @@ if __name__ == '__main__':
 		if accuracy > maxAccuracy:
 			maxAccuracy = accuracy
 			bestClassifier = c  # Current classifier
-			
+	
 	correctGuesses = 0
 	predictions = bestClassifier.predict(testX)
 	
 	for real, predicted in zip(testY, predictions):
 		if real == predicted: correctGuesses += 1
-		
+	
 	accuracy = correctGuesses / len(testY)
 	
 	print(f"Accuracy: {accuracy}")
